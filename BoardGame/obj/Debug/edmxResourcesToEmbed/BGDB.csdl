@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BOARDGAMEModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblCategory">
+    <Key>
+      <PropertyRef Name="categoryID" />
+    </Key>
+    <Property Name="categoryNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="categoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblGame" Relationship="Self.FK__tblGame__categor__3F466844" FromRole="tblCategory" ToRole="tblGame" />
+  </EntityType>
+  <EntityType Name="tblGame">
+    <Key>
+      <PropertyRef Name="gameID" />
+    </Key>
+    <Property Name="gameNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="gameID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="categoryID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="gameName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gameDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gamePrice" Type="Int32" Nullable="false" />
+    <Property Name="gameImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gameQuantity" Type="Int32" />
+    <Property Name="gameRate" Type="Int32" />
+    <Property Name="gameStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="gameRateNumber" Type="Int32" />
+    <NavigationProperty Name="tblCategory" Relationship="Self.FK__tblGame__categor__3F466844" FromRole="tblGame" ToRole="tblCategory" />
+    <NavigationProperty Name="tblOrdergame" Relationship="Self.FK__tblOrderg__gameI__4F7CD00D" FromRole="tblGame" ToRole="tblOrdergame" />
+  </EntityType>
+  <EntityType Name="tblOrder">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orderID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="paymentMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="paymentStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="orderAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="orderPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="totalOrder" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblUser" Relationship="Self.FK__tblOrder__userNa__35BCFE0A" FromRole="tblOrder" ToRole="tblUser" />
+    <NavigationProperty Name="tblOrdergame" Relationship="Self.FK__tblOrderg__order__37A5467C" FromRole="tblOrder" ToRole="tblOrdergame" />
+  </EntityType>
+  <EntityType Name="tblOrdergame">
+    <Key>
+      <PropertyRef Name="ordergameID" />
+    </Key>
+    <Property Name="ordergameNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ordergameID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="orderID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="gameID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="numOfgame" Type="Int32" />
+    <Property Name="pricegame" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblGame" Relationship="Self.FK__tblOrderg__gameI__4F7CD00D" FromRole="tblOrdergame" ToRole="tblGame" />
+    <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblOrderg__order__37A5467C" FromRole="tblOrdergame" ToRole="tblOrder" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="userName" />
+    </Key>
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userRole" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="userPass" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="userPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="userAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblOrder__userNa__35BCFE0A" FromRole="tblUser" ToRole="tblOrder" />
+  </EntityType>
+  <Association Name="FK__tblGame__categor__3F466844">
+    <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+    <End Role="tblGame" Type="Self.tblGame" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCategory">
+        <PropertyRef Name="categoryID" />
+      </Principal>
+      <Dependent Role="tblGame">
+        <PropertyRef Name="categoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblOrderg__gameI__4F7CD00D">
+    <End Role="tblGame" Type="Self.tblGame" Multiplicity="1" />
+    <End Role="tblOrdergame" Type="Self.tblOrdergame" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGame">
+        <PropertyRef Name="gameID" />
+      </Principal>
+      <Dependent Role="tblOrdergame">
+        <PropertyRef Name="gameID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblOrder__userNa__35BCFE0A">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+    <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="userName" />
+      </Principal>
+      <Dependent Role="tblOrder">
+        <PropertyRef Name="userName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblOrderg__order__37A5467C">
+    <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="1" />
+    <End Role="tblOrdergame" Type="Self.tblOrdergame" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblOrder">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="tblOrdergame">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BGDB" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblCategory" EntityType="Self.tblCategory" />
+    <EntitySet Name="tblGame" EntityType="Self.tblGame" />
+    <EntitySet Name="tblOrder" EntityType="Self.tblOrder" />
+    <EntitySet Name="tblOrdergame" EntityType="Self.tblOrdergame" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" />
+    <AssociationSet Name="FK__tblGame__categor__3F466844" Association="Self.FK__tblGame__categor__3F466844">
+      <End Role="tblCategory" EntitySet="tblCategory" />
+      <End Role="tblGame" EntitySet="tblGame" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblOrderg__gameI__4F7CD00D" Association="Self.FK__tblOrderg__gameI__4F7CD00D">
+      <End Role="tblGame" EntitySet="tblGame" />
+      <End Role="tblOrdergame" EntitySet="tblOrdergame" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblOrder__userNa__35BCFE0A" Association="Self.FK__tblOrder__userNa__35BCFE0A">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblOrder" EntitySet="tblOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblOrderg__order__37A5467C" Association="Self.FK__tblOrderg__order__37A5467C">
+      <End Role="tblOrder" EntitySet="tblOrder" />
+      <End Role="tblOrdergame" EntitySet="tblOrdergame" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

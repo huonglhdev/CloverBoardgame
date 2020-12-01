@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BOARDGAMEModelStoreContainer" CdmEntityContainer="BOARDGAMEEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="BOARDGAMEModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblCategory">
+      <EntityTypeMapping TypeName="BOARDGAMEModel.tblCategory">
+        <MappingFragment StoreEntitySet="tblCategory">
+          <ScalarProperty Name="categoryNo" ColumnName="categoryNo" />
+          <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGame">
+      <EntityTypeMapping TypeName="BOARDGAMEModel.tblGame">
+        <MappingFragment StoreEntitySet="tblGame">
+          <ScalarProperty Name="gameNo" ColumnName="gameNo" />
+          <ScalarProperty Name="gameID" ColumnName="gameID" />
+          <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+          <ScalarProperty Name="gameName" ColumnName="gameName" />
+          <ScalarProperty Name="gameDescription" ColumnName="gameDescription" />
+          <ScalarProperty Name="gamePrice" ColumnName="gamePrice" />
+          <ScalarProperty Name="gameQuantity" ColumnName="gameQuantity" />
+          <ScalarProperty Name="gameImage" ColumnName="gameImage" />
+          <ScalarProperty Name="gameRate" ColumnName="gameRate" />
+          <ScalarProperty Name="gameStatus" ColumnName="gameStatus" />
+          <ScalarProperty Name="gameRateNumber" ColumnName="gameRateNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOrder">
+      <EntityTypeMapping TypeName="BOARDGAMEModel.tblOrder">
+        <MappingFragment StoreEntitySet="tblOrder">
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="paymentMethod" ColumnName="paymentMethod" />
+          <ScalarProperty Name="paymentStatus" ColumnName="paymentStatus" />
+          <ScalarProperty Name="orderAddress" ColumnName="orderAddress" />
+          <ScalarProperty Name="orderPhone" ColumnName="orderPhone" />
+          <ScalarProperty Name="totalOrder" ColumnName="totalOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOrdergame">
+      <EntityTypeMapping TypeName="BOARDGAMEModel.tblOrdergame">
+        <MappingFragment StoreEntitySet="tblOrdergame">
+          <ScalarProperty Name="ordergameNo" ColumnName="ordergameNo" />
+          <ScalarProperty Name="ordergameID" ColumnName="ordergameID" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="gameID" ColumnName="gameID" />
+          <ScalarProperty Name="numOfgame" ColumnName="numOfgame" />
+          <ScalarProperty Name="pricegame" ColumnName="pricegame" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUser">
+      <EntityTypeMapping TypeName="BOARDGAMEModel.tblUser">
+        <MappingFragment StoreEntitySet="tblUser">
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="userRole" ColumnName="userRole" />
+          <ScalarProperty Name="userFullName" ColumnName="userFullName" />
+          <ScalarProperty Name="userPass" ColumnName="userPass" />
+          <ScalarProperty Name="userPhone" ColumnName="userPhone" />
+          <ScalarProperty Name="userAddress" ColumnName="userAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

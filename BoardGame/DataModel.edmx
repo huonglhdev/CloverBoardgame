@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BOARDGAMEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblGame">
+          <Key>
+            <PropertyRef Name="gameID" />
+          </Key>
+          <Property Name="gameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryID" Type="int" />
+          <Property Name="gameName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="gameDescription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="gamePrice" Type="int" Nullable="false" />
+          <Property Name="gameImage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="gameQuantity" Type="int" />
+          <Property Name="gameStatus" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="orderDate" Type="datetime" Nullable="false" />
+          <Property Name="orderAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="orderPhone" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="totalOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOrdergame">
+          <Key>
+            <PropertyRef Name="ordergameID" />
+          </Key>
+          <Property Name="ordergameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderID" Type="int" Nullable="false" />
+          <Property Name="gameID" Type="int" Nullable="false" />
+          <Property Name="numOfgame" Type="int" />
+          <Property Name="pricegame" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userRole" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="userFullName" Type="nvarchar" MaxLength="100" />
+          <Property Name="userPass" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="userPhone" Type="varchar" MaxLength="10" />
+          <Property Name="userAddress" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__tblGame__categor__46E78A0C">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
+          <End Role="tblGame" Type="Self.tblGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="tblGame">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrder__userNa__47DBAE45">
+          <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="tblOrder">
+              <PropertyRef Name="userName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrderg__gameI__48CFD27E">
+          <End Role="tblGame" Type="Self.tblGame" Multiplicity="1" />
+          <End Role="tblOrdergame" Type="Self.tblOrdergame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGame">
+              <PropertyRef Name="gameID" />
+            </Principal>
+            <Dependent Role="tblOrdergame">
+              <PropertyRef Name="gameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrderg__order__49C3F6B7">
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="1" />
+          <End Role="tblOrdergame" Type="Self.tblOrdergame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrder">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="tblOrdergame">
+              <PropertyRef Name="orderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BOARDGAMEModelStoreContainer">
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGame" EntityType="Self.tblGame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrdergame" EntityType="Self.tblOrdergame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblGame__categor__46E78A0C" Association="Self.FK__tblGame__categor__46E78A0C">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblGame" EntitySet="tblGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrder__userNa__47DBAE45" Association="Self.FK__tblOrder__userNa__47DBAE45">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblOrder" EntitySet="tblOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrderg__gameI__48CFD27E" Association="Self.FK__tblOrderg__gameI__48CFD27E">
+            <End Role="tblGame" EntitySet="tblGame" />
+            <End Role="tblOrdergame" EntitySet="tblOrdergame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrderg__order__49C3F6B7" Association="Self.FK__tblOrderg__order__49C3F6B7">
+            <End Role="tblOrder" EntitySet="tblOrder" />
+            <End Role="tblOrdergame" EntitySet="tblOrdergame" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BOARDGAMEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BOARDGAMEDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCategory" EntityType="BOARDGAMEModel.tblCategory" />
+          <EntitySet Name="tblOrdergame" EntityType="BOARDGAMEModel.tblOrdergame" />
+          <EntitySet Name="tblUser" EntityType="BOARDGAMEModel.tblUser" />
+          <EntitySet Name="tblGame" EntityType="BOARDGAMEModel.tblGame" />
+          <AssociationSet Name="FK__tblGame__categor__45F365D3" Association="BOARDGAMEModel.FK__tblGame__categor__45F365D3">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblGame" EntitySet="tblGame" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrderg__gameI__47DBAE45" Association="BOARDGAMEModel.FK__tblOrderg__gameI__47DBAE45">
+            <End Role="tblGame" EntitySet="tblGame" />
+            <End Role="tblOrdergame" EntitySet="tblOrdergame" />
+          </AssociationSet>
+          <EntitySet Name="tblOrder" EntityType="BOARDGAMEModel.tblOrder" />
+          <AssociationSet Name="FK__tblOrder__userNa__47DBAE45" Association="BOARDGAMEModel.FK__tblOrder__userNa__47DBAE45">
+            <End Role="tblUser" EntitySet="tblUser" />
+            <End Role="tblOrder" EntitySet="tblOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrderg__order__49C3F6B7" Association="BOARDGAMEModel.FK__tblOrderg__order__49C3F6B7">
+            <End Role="tblOrder" EntitySet="tblOrder" />
+            <End Role="tblOrdergame" EntitySet="tblOrdergame" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblGame" Relationship="BOARDGAMEModel.FK__tblGame__categor__45F365D3" FromRole="tblCategory" ToRole="tblGame" />
+        </EntityType>
+        <EntityType Name="tblOrdergame">
+          <Key>
+            <PropertyRef Name="ordergameID" />
+          </Key>
+          <Property Name="ordergameID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderID" Type="Int32" Nullable="false" />
+          <Property Name="gameID" Type="Int32" Nullable="false" />
+          <Property Name="numOfgame" Type="Int32" />
+          <Property Name="pricegame" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblGame" Relationship="BOARDGAMEModel.FK__tblOrderg__gameI__47DBAE45" FromRole="tblOrdergame" ToRole="tblGame" />
+          <NavigationProperty Name="tblOrder" Relationship="BOARDGAMEModel.FK__tblOrderg__order__49C3F6B7" FromRole="tblOrdergame" ToRole="tblOrder" />
+        </EntityType>
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="userName" />
+          </Key>
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userRole" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="userFullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="userPass" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="userPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="userAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblOrder" Relationship="BOARDGAMEModel.FK__tblOrder__userNa__47DBAE45" FromRole="tblUser" ToRole="tblOrder" />
+        </EntityType>
+        <EntityType Name="tblGame">
+          <Key>
+            <PropertyRef Name="gameID" />
+          </Key>
+          <Property Name="gameID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryID" Type="Int32" />
+          <Property Name="gameName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gameDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gamePrice" Type="Int32" Nullable="false" />
+          <Property Name="gameImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gameQuantity" Type="Int32" />
+          <Property Name="gameStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCategory" Relationship="BOARDGAMEModel.FK__tblGame__categor__45F365D3" FromRole="tblGame" ToRole="tblCategory" />
+          <NavigationProperty Name="tblOrdergame" Relationship="BOARDGAMEModel.FK__tblOrderg__gameI__47DBAE45" FromRole="tblGame" ToRole="tblOrdergame" />
+        </EntityType>
+        <Association Name="FK__tblGame__categor__45F365D3">
+          <End Type="BOARDGAMEModel.tblCategory" Role="tblCategory" Multiplicity="0..1" />
+          <End Type="BOARDGAMEModel.tblGame" Role="tblGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="tblGame">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrderg__gameI__47DBAE45">
+          <End Type="BOARDGAMEModel.tblGame" Role="tblGame" Multiplicity="1" />
+          <End Type="BOARDGAMEModel.tblOrdergame" Role="tblOrdergame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGame">
+              <PropertyRef Name="gameID" />
+            </Principal>
+            <Dependent Role="tblOrdergame">
+              <PropertyRef Name="gameID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="orderAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="orderPhone" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="totalOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblUser" Relationship="BOARDGAMEModel.FK__tblOrder__userNa__47DBAE45" FromRole="tblOrder" ToRole="tblUser" />
+          <NavigationProperty Name="tblOrdergame" Relationship="BOARDGAMEModel.FK__tblOrderg__order__49C3F6B7" FromRole="tblOrder" ToRole="tblOrdergame" />
+        </EntityType>
+        <Association Name="FK__tblOrder__userNa__47DBAE45">
+          <End Type="BOARDGAMEModel.tblUser" Role="tblUser" Multiplicity="1" />
+          <End Type="BOARDGAMEModel.tblOrder" Role="tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUser">
+              <PropertyRef Name="userName" />
+            </Principal>
+            <Dependent Role="tblOrder">
+              <PropertyRef Name="userName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrderg__order__49C3F6B7">
+          <End Type="BOARDGAMEModel.tblOrder" Role="tblOrder" Multiplicity="1" />
+          <End Type="BOARDGAMEModel.tblOrdergame" Role="tblOrdergame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrder">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="tblOrdergame">
+              <PropertyRef Name="orderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BOARDGAMEModelStoreContainer" CdmEntityContainer="BOARDGAMEDB">
+          <EntitySetMapping Name="tblCategory">
+            <EntityTypeMapping TypeName="BOARDGAMEModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrdergame">
+            <EntityTypeMapping TypeName="BOARDGAMEModel.tblOrdergame">
+              <MappingFragment StoreEntitySet="tblOrdergame">
+                <ScalarProperty Name="pricegame" ColumnName="pricegame" />
+                <ScalarProperty Name="numOfgame" ColumnName="numOfgame" />
+                <ScalarProperty Name="gameID" ColumnName="gameID" />
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+                <ScalarProperty Name="ordergameID" ColumnName="ordergameID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUser">
+            <EntityTypeMapping TypeName="BOARDGAMEModel.tblUser">
+              <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="userAddress" ColumnName="userAddress" />
+                <ScalarProperty Name="userPhone" ColumnName="userPhone" />
+                <ScalarProperty Name="userPass" ColumnName="userPass" />
+                <ScalarProperty Name="userFullName" ColumnName="userFullName" />
+                <ScalarProperty Name="userRole" ColumnName="userRole" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGame">
+            <EntityTypeMapping TypeName="BOARDGAMEModel.tblGame">
+              <MappingFragment StoreEntitySet="tblGame">
+                <ScalarProperty Name="gameStatus" ColumnName="gameStatus" />
+                <ScalarProperty Name="gameQuantity" ColumnName="gameQuantity" />
+                <ScalarProperty Name="gameImage" ColumnName="gameImage" />
+                <ScalarProperty Name="gamePrice" ColumnName="gamePrice" />
+                <ScalarProperty Name="gameDescription" ColumnName="gameDescription" />
+                <ScalarProperty Name="gameName" ColumnName="gameName" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="gameID" ColumnName="gameID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrder">
+            <EntityTypeMapping TypeName="BOARDGAMEModel.tblOrder">
+              <MappingFragment StoreEntitySet="tblOrder">
+                <ScalarProperty Name="totalOrder" ColumnName="totalOrder" />
+                <ScalarProperty Name="orderPhone" ColumnName="orderPhone" />
+                <ScalarProperty Name="orderAddress" ColumnName="orderAddress" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

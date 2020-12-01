@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d2e5b8ec014d4c61b8fc1a5f1898a93b" Name="Diagram1">
+        <EntityTypeShape EntityType="BOARDGAMEModel.tblCategory" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="BOARDGAMEModel.tblOrdergame" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="BOARDGAMEModel.tblUser" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="BOARDGAMEModel.tblGame" Width="1.5" PointX="3" PointY="5.125" />
+        <AssociationConnector Association="BOARDGAMEModel.FK__tblGame__categor__45F365D3" />
+        <AssociationConnector Association="BOARDGAMEModel.FK__tblOrderg__gameI__47DBAE45" />
+        <EntityTypeShape EntityType="BOARDGAMEModel.tblOrder" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="BOARDGAMEModel.FK__tblOrder__userNa__47DBAE45" />
+        <AssociationConnector Association="BOARDGAMEModel.FK__tblOrderg__order__49C3F6B7" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
